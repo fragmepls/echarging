@@ -52,52 +52,117 @@ public class eChargingWrapper {
         return obj;
     }
 
-    public boolean isActive() throws UnirestException {
-        return this.active;
+    @Override
+    public String toString() {
+        return "eChargingWrapper [active="
+                + active + ", available="
+                + available + ", code="
+                + code + ", x="
+                + x + ", y="
+                + y + ", city="
+                + city + ", state="
+                + state + ", address="
+                + address + ", capacity="
+                + capacity + ", provider="
+                + provider + ", name="
+                + name + ", origin="
+                + origin + "]";
     }
 
-    public boolean isAvailable() throws UnirestException {
-        return this.available;
+    public boolean isActive() {
+        return active;
     }
 
-    public String getCode() throws UnirestException {
-        return this.code;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public double getX() throws UnirestException {
-        return this.x;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public double getY() throws UnirestException {
-        return this.y;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
-    public String getCity() throws UnirestException {
-        return this.city;
+    public String getCode() {
+        return code;
     }
 
-    public String getState() throws UnirestException {
-        return this.state;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getAddress() throws UnirestException {
-        return this.address;
+    public double getX() {
+        return x;
     }
 
-    public int getCapacity() throws UnirestException {
-        return this.capacity;
+    public void setX(double x) {
+        this.x = x;
     }
 
-    public String getProvider() throws UnirestException {
-        return this.provider;
+    public double getY() {
+        return y;
     }
 
-    public String getName() throws UnirestException {
-        return this.name;
+    public void setY(double y) {
+        this.y = y;
     }
 
-    public String getOrigin() throws UnirestException {
-        return this.origin;
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
 }

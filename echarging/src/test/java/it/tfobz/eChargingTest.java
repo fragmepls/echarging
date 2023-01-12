@@ -14,8 +14,9 @@ public class eChargingTest {
                 .get("https://mobility.api.opendatahub.com/v2/flat,node/EChargingStation")
                 .asString();
         JSONObject obj = new JSONObject(response.getBody());
+        int length = obj.getJSONArray("data").length();
 
-        for (int i = 0; i < obj.getJSONArray("data").length(); i++) {
+        for (int i = 0; i < length; i++) {
             eChargingWrapper wrapper = new eChargingWrapper(i);
             System.out.print(wrapper.isActive() + ";");
             System.out.print(wrapper.isAvailable() + ";");
