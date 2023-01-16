@@ -1,11 +1,11 @@
-package it.tfobz;
+package net.tfobz;
 
 import org.json.JSONObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-public class eChargingWrapper {
+public class EchargingMain {
 
     private JSONObject obj = getData();
 
@@ -22,7 +22,7 @@ public class eChargingWrapper {
     private String name;
     private String origin;
 
-    public eChargingWrapper(int i) throws UnirestException {
+    public EchargingMain(int i) throws UnirestException {
         this.active = this.obj.getJSONArray("data").getJSONObject(i).getBoolean("sactive");
         this.available = this.obj.getJSONArray("data").getJSONObject(i).getBoolean("savailable");
         this.code = this.obj.getJSONArray("data").getJSONObject(i).getString("scode");
