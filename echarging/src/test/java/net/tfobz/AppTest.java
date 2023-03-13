@@ -1,6 +1,5 @@
 package net.tfobz;
 
-import org.apache.http.impl.conn.SystemDefaultRoutePlanner;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.HttpResponse;
