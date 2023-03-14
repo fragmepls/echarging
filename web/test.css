@@ -38,3 +38,44 @@ body {
 .sidebar a.active {
   background-color: rgba(255, 255, 255, 0.4);
 }
+
+.country-filter label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.country-filter input[type="checkbox"] {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.country-filter input[type="checkbox"]:checked + span {
+  font-weight: bold;
+}
+
+.country-filter input[type="checkbox"] + span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.submenu {
+  display: none;
+  transform: translateY(-10px);
+}
+
+.submenu-visible {
+  display: block;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transform: translateY(-10px);
+}
+
+.submenu-visible.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.has-submenu .arrow-icon.rotate {
+  transform: rotate(180deg);
+}

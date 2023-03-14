@@ -11,10 +11,28 @@
   </head>
   <body>
     <div class="sidebar">
-      <a href="#" id="link1">Link 1</a>
-      <a href="#" id="link2">Link 2</a>
-      <a href="#" id="link3">Link 3</a>
+      <a href="#">All stations</a>
+      <a href="#" class="has-submenu"
+        >Filter stations <span class="arrow-icon">▼</span></a
+      >
+      <ul class="submenu">
+        <div class="country-filter">
+          <label>
+            <input type="checkbox" name="country" value="usa" />
+            USA
+          </label>
+          <label>
+            <input type="checkbox" name="country" value="canada" />
+            Canada
+          </label>
+          <label>
+            <input type="checkbox" name="country" value="mexico" />
+            Mexico
+          </label>
+        </div>
+      </ul>
     </div>
+
     <div id="content">
       <div id="map" style="height: 100vh"></div>
     </div>

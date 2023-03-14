@@ -1,5 +1,8 @@
 const sidebar = document.querySelector(".sidebar");
 const content = document.querySelector("#content");
+var link = document.querySelector(".has-submenu");
+var submenu = document.querySelector(".submenu");
+var arrowIcon = link.querySelector(".arrow-icon");
 content.style.marginLeft = sidebar.offsetWidth + "px";
 
 var links = document.querySelectorAll(".sidebar a");
@@ -12,6 +15,14 @@ for (var i = 0; i < links.length; i++) {
     this.classList.add("active");
   });
 }
+
+link.addEventListener("click", function () {
+  submenu.classList.toggle("submenu-visible");
+  setTimeout(function () {
+    submenu.classList.toggle("animate");
+  }, 0);
+  arrowIcon.classList.toggle("rotate");
+});
 
 var mymap = L.map("map").setView([52, 10], 5);
 
