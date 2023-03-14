@@ -1,8 +1,5 @@
 const sidebar = document.querySelector(".sidebar");
 const content = document.querySelector("#content");
-var link = document.querySelector(".has-submenu");
-var submenu = document.querySelector(".submenu");
-var arrowIcon = link.querySelector(".arrow-icon");
 content.style.marginLeft = sidebar.offsetWidth + "px";
 
 var links = document.querySelectorAll(".sidebar a");
@@ -16,12 +13,12 @@ for (var i = 0; i < links.length; i++) {
   });
 }
 
-link.addEventListener("click", function () {
-  submenu.classList.toggle("submenu-visible");
-  setTimeout(function () {
-    submenu.classList.toggle("animate");
-  }, 0);
-  arrowIcon.classList.toggle("rotate");
+const dropdownBtn = document.querySelector(".dropdown-btn");
+const dropdownContent = document.querySelector(".dropdown-content");
+dropdownBtn.addEventListener("click", function () {
+  dropdownContent.parentElement.classList.toggle("open");
+  const arrowIcon = dropdownBtn.querySelector(".arrow-icon");
+  arrowIcon.classList.toggle("up");
 });
 
 var mymap = L.map("map").setView([52, 10], 5);
