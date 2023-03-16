@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <title>E-Charging Stations Map</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E-Charging Stations Map</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
     <link rel="stylesheet" href="test.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-      charset="utf-8"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   </head>
   <body>
     <div class="ontop">
@@ -33,11 +27,7 @@
             <a href="#"><i class="fas fa-desktop"></i>Dashboard</a>
           </div>
           <div class="item">
-            <a class="sub-btn"
-              ><i class="fas fa-table"></i>Tables<i
-                class="fas fa-angle-right dropdown"
-              ></i
-            ></a>
+            <a class="sub-btn"><i class="fas fa-table"></i>Tables<i class="fas fa-angle-right dropdown"></i></a>
             <div class="sub-menu">
               <a href="#" class="sub-item">Sub Item 01</a>
               <a href="#" class="sub-item">Sub Item 02</a>
@@ -48,11 +38,7 @@
             <a href="#"><i class="fas fa-th"></i>Forms</a>
           </div>
           <div class="item">
-            <a class="sub-btn"
-              ><i class="fas fa-cogs"></i>Settings<i
-                class="fas fa-angle-right dropdown"
-              ></i
-            ></a>
+            <a class="sub-btn"><i class="fas fa-cogs"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
             <div class="sub-menu">
               <a href="#" class="sub-item">Sub Item 01</a>
               <a href="#" class="sub-item">Sub Item 02</a>
