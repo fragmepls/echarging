@@ -134,6 +134,49 @@
   color: white !important;
 }
 
+.leaflet-routing-container {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.leaflet-routing-container .leaflet-routing-geocoders button {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.leaflet-routing-container .leaflet-routing-geocoders button:hover {
+  color: black;
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  border-color: black;
+}
+
+.leaflet-routing-geocoders input::placeholder {
+  color: rgb(59, 59, 59);
+  opacity: 0.75;
+}
+
+.leaflet-routing-geocoders input {
+  color: black;
+  opacity: 0.75;
+}
+
+.leaflet-routing-geocoders input:focus {
+  color: black;
+  opacity: 1;
+}
+
+.leaflet-routing-remove-waypoint::after {
+  color: rgba(0, 0, 0, 0.75) !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.leaflet-routing-alt {
+  color: white !important;
+}
+
+.leaflet-routing-alt:hover tr:hover {
+  color: black !important;
+}
+
 html,
 body {
   height: 100%;
