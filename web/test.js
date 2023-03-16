@@ -1,26 +1,3 @@
-const sidebar = document.querySelector(".sidebar");
-const content = document.querySelector("#content");
-content.style.marginLeft = sidebar.offsetWidth + "px";
-
-var links = document.querySelectorAll(".sidebar a");
-
-for (var i = 0; i < links.length; i++) {
-  links[i].addEventListener("click", function () {
-    for (var j = 0; j < links.length; j++) {
-      links[j].classList.remove("active");
-    }
-    this.classList.add("active");
-  });
-}
-
-const dropdownBtn = document.querySelector(".dropdown-btn");
-const dropdownContent = document.querySelector(".dropdown-content");
-dropdownBtn.addEventListener("click", function () {
-  dropdownContent.parentElement.classList.toggle("open");
-  const arrowIcon = dropdownBtn.querySelector(".arrow-icon");
-  arrowIcon.classList.toggle("up");
-});
-
 var mymap = L.map("map").setView([52, 10], 5);
 
 var zoomControl = L.control.zoom();
