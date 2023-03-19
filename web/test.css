@@ -2,6 +2,7 @@
 
 * {
   font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
 }
 
 .ontop {
@@ -97,6 +98,19 @@
   cursor: pointer;
 }
 
+.menu-btn:hover {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.75);
+  color: black;
+  border-radius: 5px;
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
 .main {
   height: 100vh;
   display: flex;
@@ -119,6 +133,10 @@
   }
 }
 
+.clear-formatting {
+  content: url(clear.png);
+}
+
 #map {
   height: 100%;
   width: 100%;
@@ -132,6 +150,16 @@
 .leaflet-control-zoom-out {
   background-color: rgba(0, 0, 0, 0.75) !important;
   color: white !important;
+}
+
+.leaflet-control-zoom-in:hover {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  color: black !important;
+}
+
+.leaflet-control-zoom-out:hover {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  color: black !important;
 }
 
 .leaflet-routing-container {
@@ -157,11 +185,13 @@
 .leaflet-routing-geocoders input {
   color: black;
   opacity: 0.75;
+  padding-right: 20px;
 }
 
 .leaflet-routing-geocoders input:focus {
   color: black;
   opacity: 1;
+  padding-right: 20px;
 }
 
 .leaflet-routing-remove-waypoint::after {
@@ -175,6 +205,16 @@
 
 .leaflet-routing-alt:hover tr:hover {
   color: black !important;
+}
+
+.leaflet-routing-container-hide .leaflet-routing-collapse-btn {
+  position: absolute !important;
+  left: 2px !important;
+  top: 2px !important;
+  display: block;
+  width: 26px;
+  height: 23px;
+  background-image: url(image.png) !important;
 }
 
 html,
