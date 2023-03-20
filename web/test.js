@@ -1,12 +1,11 @@
-var mymap = L.map("map").setView([52, 10], 6);
+var mymap = L.map("map").setView([44, 13], 7);
 const allMarkers = L.layerGroup();
-const italyMarkers = L.layerGroup();
-const austriaMarkers = L.layerGroup();
-const switzerlandMarkers = L.layerGroup();
-const germanyMarkers = L.layerGroup();
-const denmarkMarkers = L.layerGroup();
-const layers = [italyMarkers, austriaMarkers, switzerlandMarkers, germanyMarkers, denmarkMarkers];
-const countries = ["IT", "AT", "CH", "DE", "DK"];
+const availableMarkers = L.layerGroup();
+const notAvailableMarkers = L.layerGroup();
+const capacityMarkers1 = L.layerGroup();
+const capacityMarkers2 = L.layerGroup();
+const capacityMarkers3 = L.layerGroup();
+const capacityMarkers4 = L.layerGroup();
 
 var zoomControl = L.control.zoom();
 zoomControl.setPosition("bottomright");
@@ -32,143 +31,133 @@ var control = L.Routing.control({
 
 async function getJson() {
   try {
-    const response = await fetch("https://mobility.api.opendatahub.bz.it/v2/tree,node/EChargingStation");
+    const response = await fetch("https://mobility.api.opendatahub.com/v2/flat,node/EChargingStation/*");
     return await response.json();
   } catch (error) {
     console.error(error);
   }
 }
 
-async function setAllCountryMarkers() {
+async function setAllMarkers() {
   jsonObj = await getJson();
-  Object.values(jsonObj["data"]["EChargingStation"]["stations"]).forEach((value) => {
+  Object.values(jsonObj["data"]).forEach((value) => {
     var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(allMarkers);
-    marker.bindPopup(
-      "<b>" +
-        value["smetadata"]["address"] +
-        "</b><br>" +
-        "Available: " +
-        value["savailable"] +
-        "<br>" +
-        "Name: " +
-        value["sname"] +
-        "<br>" +
-        "Link: <a href='https://maps.google.com/?q=" +
-        value["scoordinate"]["y"] +
-        "," +
-        value["scoordinate"]["x"] +
-        "'>" +
-        value["scoordinate"]["y"] +
-        ", " +
-        value["scoordinate"]["x"] +
-        "</a>"
-    );
+    marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
   });
   allMarkers.addTo(mymap);
 }
 
-setAllCountryMarkers();
-
-async function setCountryMarkers() {
+async function setAvailableMarkers() {
   jsonObj = await getJson();
-  Object.values(jsonObj["data"]["EChargingStation"]["stations"]).forEach((value) => {
-    const y = value["scoordinate"]["y"];
-    const x = value["scoordinate"]["x"];
-    const url = `http://api.geonames.org/countryCode?lat=${y}&lng=${x}&username=fragmepls`;
-    fetch(url)
-      .then((data) => {
-        console.log(data == countries[i]);
-        // if (data == (countries[i])) {
-        //   var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(layers[i]);
-        //   marker.bindPopup(
-        //     "<b>" +
-        //       value["smetadata"]["address"] +
-        //       "</b><br>" +
-        //       "Available: " +
-        //       value["savailable"] +
-        //       "<br>" +
-        //       "Name: " +
-        //       value["sname"] +
-        //       "<br>" +
-        //       "Link: <a href='https://maps.google.com/?q=" +
-        //       value["scoordinate"]["y"] +
-        //       "," +
-        //       value["scoordinate"]["x"] +
-        //       "'>" +
-        //       value["scoordinate"]["y"] +
-        //       ", " +
-        //       value["scoordinate"]["x"] +
-        //       "</a>"
-        //   );
-        // }
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation: ", error);
-      });
+  Object.values(jsonObj["data"]).forEach((value) => {
+    if (value["savailable"] == true) {
+      var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(availableMarkers);
+      marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+    } else {
+      var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(notAvailableMarkers);
+      marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+    }
   });
 }
 
-setCountryMarkers();
+async function setCapacityMarkers() {
+  jsonObj = await getJson();
+  Object.values(jsonObj["data"]).forEach((value) => {
+    switch (+value["smetadata"]["capacity"]) {
+      case 1: {
+        var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers1);
+        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        break;
+      }
+      case 2: {
+        var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers2);
+        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        break;
+      }
+      case 3: {
+        var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers3);
+        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        break;
+      }
+      case 4: {
+        var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers4);
+        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        break;
+      }
+    }
+  });
+}
+
+setAllMarkers();
+setAvailableMarkers();
+setCapacityMarkers();
 
 document.querySelector(".all-link").addEventListener("click", function () {
-  mymap.removeLayer(italyMarkers);
-  mymap.removeLayer(austriaMarkers);
-  mymap.removeLayer(switzerlandMarkers);
-  mymap.removeLayer(germanyMarkers);
-  mymap.removeLayer(denmarkMarkers);
+  mymap.removeLayer(availableMarkers);
+  mymap.removeLayer(notAvailableMarkers);
+  mymap.removeLayer(capacityMarkers1);
+  mymap.removeLayer(capacityMarkers2);
+  mymap.removeLayer(capacityMarkers3);
+  mymap.removeLayer(capacityMarkers4);
   allMarkers.addTo(mymap);
 });
 
-document.querySelector(".italy-link").addEventListener("click", function () {
+document.querySelector(".available").addEventListener("click", function () {
   mymap.removeLayer(allMarkers);
-  mymap.removeLayer(austriaMarkers);
-  mymap.removeLayer(switzerlandMarkers);
-  mymap.removeLayer(germanyMarkers);
-  mymap.removeLayer(denmarkMarkers);
-  italyMarkers.addTo(mymap);
+  mymap.removeLayer(notAvailableMarkers);
+  mymap.removeLayer(capacityMarkers1);
+  mymap.removeLayer(capacityMarkers2);
+  mymap.removeLayer(capacityMarkers3);
+  mymap.removeLayer(capacityMarkers4);
+  availableMarkers.addTo(mymap);
 });
 
-document.querySelector(".austria-link").addEventListener("click", function () {
+document.querySelector(".not-available").addEventListener("click", function () {
   mymap.removeLayer(allMarkers);
-  mymap.removeLayer(italyMarkers);
-  mymap.removeLayer(switzerlandMarkers);
-  mymap.removeLayer(germanyMarkers);
-  mymap.removeLayer(denmarkMarkers);
-  austriaMarkers.addTo(mymap);
+  mymap.removeLayer(availableMarkers);
+  mymap.removeLayer(capacityMarkers1);
+  mymap.removeLayer(capacityMarkers2);
+  mymap.removeLayer(capacityMarkers3);
+  mymap.removeLayer(capacityMarkers4);
+  notAvailableMarkers.addTo(mymap);
 });
 
-document.querySelector(".switzerland-link").addEventListener("click", function () {
+document.querySelector(".one").addEventListener("click", function () {
   mymap.removeLayer(allMarkers);
-  mymap.removeLayer(italyMarkers);
-  mymap.removeLayer(austriaMarkers);
-  mymap.removeLayer(germanyMarkers);
-  mymap.removeLayer(denmarkMarkers);
-  switzerlandMarkers.addTo(mymap);
+  mymap.removeLayer(availableMarkers);
+  mymap.removeLayer(notAvailableMarkers);
+  mymap.removeLayer(capacityMarkers2);
+  mymap.removeLayer(capacityMarkers3);
+  mymap.removeLayer(capacityMarkers4);
+  capacityMarkers1.addTo(mymap);
 });
 
-document.querySelector(".germany-link").addEventListener("click", function () {
+document.querySelector(".two").addEventListener("click", function () {
   mymap.removeLayer(allMarkers);
-  mymap.removeLayer(italyMarkers);
-  mymap.removeLayer(austriaMarkers);
-  mymap.removeLayer(switzerlandMarkers);
-  mymap.removeLayer(denmarkMarkers);
-  germanyMarkers.addTo(mymap);
+  mymap.removeLayer(availableMarkers);
+  mymap.removeLayer(notAvailableMarkers);
+  mymap.removeLayer(capacityMarkers1);
+  mymap.removeLayer(capacityMarkers3);
+  mymap.removeLayer(capacityMarkers4);
+  capacityMarkers2.addTo(mymap);
 });
 
-document.querySelector(".denmark-link").addEventListener("click", function () {
+document.querySelector(".three").addEventListener("click", function () {
   mymap.removeLayer(allMarkers);
-  mymap.removeLayer(italyMarkers);
-  mymap.removeLayer(austriaMarkers);
-  mymap.removeLayer(switzerlandMarkers);
-  mymap.removeLayer(germanyMarkers);
-  denmarkMarkers.addTo(mymap);
+  mymap.removeLayer(availableMarkers);
+  mymap.removeLayer(notAvailableMarkers);
+  mymap.removeLayer(capacityMarkers1);
+  mymap.removeLayer(capacityMarkers2);
+  mymap.removeLayer(capacityMarkers4);
+  capacityMarkers3.addTo(mymap);
 });
 
-const links = document.querySelectorAll(".country-link");
-links.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault(); // Prevent default link behavior
-    const country = link.dataset.country;
-    filterMarkersByCountry(country);
-  });
+document.querySelector(".four").addEventListener("click", function () {
+  mymap.removeLayer(allMarkers);
+  mymap.removeLayer(availableMarkers);
+  mymap.removeLayer(notAvailableMarkers);
+  mymap.removeLayer(capacityMarkers1);
+  mymap.removeLayer(capacityMarkers2);
+  mymap.removeLayer(capacityMarkers3);
+  capacityMarkers4.addTo(mymap);
 });
