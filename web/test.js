@@ -1,4 +1,6 @@
 var mymap = L.map("map").setView([44, 13], 7);
+var userLat;
+var userLng;
 const allMarkers = L.layerGroup();
 const availableMarkers = L.layerGroup();
 const notAvailableMarkers = L.layerGroup();
@@ -13,12 +15,19 @@ zoomControl.addTo(mymap);
 
 mymap.removeControl(mymap.zoomControl);
 
+navigator.geolocation.getCurrentPosition(function (position) {
+  userLat = position.coords.latitude;
+  userLng = position.coords.longitude;
+});
+
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
   maxZoom: 18,
 }).addTo(mymap);
 
 var control = L.Routing.control({
+  waypoints: [L.latLng(userLat, userLng)],
+  zoomControl: false,
   routeWhileDragging: true,
   addWaypoints: true,
   dragWaypoints: true,
@@ -42,7 +51,13 @@ async function setAllMarkers() {
   jsonObj = await getJson();
   Object.values(jsonObj["data"]).forEach((value) => {
     var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(allMarkers);
-    marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+    marker.on("click", function () {
+      var destinationLatLng = marker.getLatLng();
+      control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+      console.log(userLat);
+      console.log(userLng);
+    });
+    marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"] + "<br>");
   });
   allMarkers.addTo(mymap);
 }
