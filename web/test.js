@@ -51,13 +51,15 @@ async function setAllMarkers() {
   jsonObj = await getJson();
   Object.values(jsonObj["data"]).forEach((value) => {
     var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(allMarkers);
-    marker.on("click", function () {
-      var destinationLatLng = marker.getLatLng();
-      control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
-      console.log(userLat);
-      console.log(userLng);
+    marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"] + "<br>" + "<a href='#' class='marker'>Route</a>");
+    marker.on("popupopen", function () {
+      document.querySelector(".marker").addEventListener("click", function () {
+        var destinationLatLng = marker.getLatLng();
+        control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+        console.log(userLat);
+        console.log(userLng);
+      });
     });
-    marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"] + "<br>");
   });
   allMarkers.addTo(mymap);
 }
