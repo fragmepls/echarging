@@ -1,4 +1,7 @@
-var mymap = L.map("map").setView([44, 13], 7);
+var mymap = L.map("map", {
+  maxBounds: L.latLngBounds(L.latLng(34.5, -17.2), L.latLng(71.5, 56.2)),
+  minZoom: 6,
+}).setView([44, 13], 7);
 var userLat;
 var userLng;
 const allMarkers = L.layerGroup();
@@ -47,17 +50,36 @@ async function getJson() {
   }
 }
 
+function getPopup(value) {
+  var available;
+  if (value["smetadata"]["state"] == "ACTIVE") {
+    available = "Available";
+  } else {
+    available = "Not available";
+  }
+  return (
+    "<b>" +
+    value["smetadata"]["address"] +
+    "</b><br>" +
+    available +
+    "<br>" +
+    "<a href='" +
+    value["smetadata"]["paymentInfo"] +
+    "'>Paymentinformation</a>" +
+    "<br>" +
+    "<a href='#' class='marker'>Route</a>"
+  );
+}
+
 async function setAllMarkers() {
   jsonObj = await getJson();
   Object.values(jsonObj["data"]).forEach((value) => {
     var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(allMarkers);
-    marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"] + "<br>" + "<a href='#' class='marker'>Route</a>");
+    marker.bindPopup(getPopup(value));
     marker.on("popupopen", function () {
       document.querySelector(".marker").addEventListener("click", function () {
         var destinationLatLng = marker.getLatLng();
         control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
-        console.log(userLat);
-        console.log(userLng);
       });
     });
   });
@@ -67,12 +89,24 @@ async function setAllMarkers() {
 async function setAvailableMarkers() {
   jsonObj = await getJson();
   Object.values(jsonObj["data"]).forEach((value) => {
-    if (value["savailable"] == true) {
+    if (value["smetadata"]["state"] == "ACTIVE") {
       var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(availableMarkers);
-      marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+      marker.bindPopup(getPopup(value));
+      marker.on("popupopen", function () {
+        document.querySelector(".marker").addEventListener("click", function () {
+          var destinationLatLng = marker.getLatLng();
+          control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+        });
+      });
     } else {
       var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(notAvailableMarkers);
-      marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+      marker.bindPopup(getPopup(value));
+      marker.on("popupopen", function () {
+        document.querySelector(".marker").addEventListener("click", function () {
+          var destinationLatLng = marker.getLatLng();
+          control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+        });
+      });
     }
   });
 }
@@ -83,22 +117,46 @@ async function setCapacityMarkers() {
     switch (+value["smetadata"]["capacity"]) {
       case 1: {
         var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers1);
-        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        marker.bindPopup(getPopup(value));
+        marker.on("popupopen", function () {
+          document.querySelector(".marker").addEventListener("click", function () {
+            var destinationLatLng = marker.getLatLng();
+            control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+          });
+        });
         break;
       }
       case 2: {
         var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers2);
-        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        marker.bindPopup(getPopup(value));
+        marker.on("popupopen", function () {
+          document.querySelector(".marker").addEventListener("click", function () {
+            var destinationLatLng = marker.getLatLng();
+            control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+          });
+        });
         break;
       }
       case 3: {
         var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers3);
-        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        marker.bindPopup(getPopup(value));
+        marker.on("popupopen", function () {
+          document.querySelector(".marker").addEventListener("click", function () {
+            var destinationLatLng = marker.getLatLng();
+            control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+          });
+        });
         break;
       }
       case 4: {
         var marker = L.marker([value["scoordinate"]["y"], value["scoordinate"]["x"]]).addTo(capacityMarkers4);
-        marker.bindPopup("<b>" + value["smetadata"]["address"] + "</b><br>" + "Available: " + value["savailable"] + "<br>" + "Name: " + value["sname"]);
+        marker.bindPopup(getPopup(value));
+        marker.on("popupopen", function () {
+          document.querySelector(".marker").addEventListener("click", function () {
+            var destinationLatLng = marker.getLatLng();
+            control.setWaypoints([L.latLng(userLat, userLng), destinationLatLng]);
+          });
+        });
         break;
       }
     }
