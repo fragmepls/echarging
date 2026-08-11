@@ -5,6 +5,18 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
 .ontop {
   position: absolute;
   z-index: 999;
@@ -38,16 +50,21 @@
   cursor: pointer;
 }
 
-.side-bar .menu .item a {
+.side-bar .menu .item button {
+  width: 100%;
   color: #fff;
   font-size: 16px;
   text-decoration: none;
   display: block;
   padding: 5px 30px;
   line-height: 60px;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
 }
 
-.side-bar .menu .item a:hover {
+.side-bar .menu .item button:hover {
   background: #8621f8;
   transition: 0.3s ease;
 }
@@ -56,7 +73,7 @@
   margin-right: 15px;
 }
 
-.side-bar .menu .item a .dropdown {
+.side-bar .menu .item button .dropdown {
   position: absolute;
   right: 0;
   margin: 20px;
@@ -65,10 +82,9 @@
 
 .side-bar .menu .item .sub-menu {
   background: rgba(255, 255, 255, 0.1);
-  display: none;
 }
 
-.side-bar .menu .item .sub-menu a {
+.side-bar .menu .item .sub-menu button {
   padding-left: 80px;
 }
 
@@ -83,6 +99,7 @@
   right: 0;
   margin: 25px;
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .menu-btn {
@@ -96,45 +113,20 @@
   padding-top: 5px;
   padding-bottom: 5px;
   cursor: pointer;
+  border: 0;
 }
 
 .menu-btn:hover {
-  position: absolute;
   background-color: rgba(255, 255, 255, 0.75);
   color: black;
-  border-radius: 5px;
-  font-size: 20px;
-  margin: 10px;
-  padding: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  cursor: pointer;
-}
-
-.main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
-}
-
-.main h1 {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 60px;
-  text-align: center;
-  line-height: 80px;
-}
-
-@media (max-width: 900px) {
-  .main h1 {
-    font-size: 40px;
-    line-height: 60px;
-  }
 }
 
 .clear-formatting {
-  content: url(clear.png);
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  background: url("/assets/clear.png") center / contain no-repeat;
 }
 
 #map {
@@ -214,12 +206,17 @@
   display: block;
   width: 26px;
   height: 23px;
-  background-image: url(image.png) !important;
+  background-image: url("/assets/image.png") !important;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+.status-banner {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 14px;
 }
